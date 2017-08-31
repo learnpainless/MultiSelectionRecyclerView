@@ -17,6 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ActionMode.Callback {
     private ActionMode actionMode;
     private boolean isMultiSelect = false;
+    //i created List of int type to store id of data, you can create custom class type data according to your need.
     private List<Integer> selectedIds = new ArrayList<>();
     private MyAdapter adapter;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ActionMode.Callba
             @Override
             public void onItemClick(View view, int position) {
                 if (isMultiSelect){
+                    //if multiple selection is enabled then select item on single click else perform normal click on item.
                     multiSelect(position);
                 }
             }
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements ActionMode.Callba
                     isMultiSelect = true;
 
                     if (actionMode == null){
-                        actionMode = startActionMode(MainActivity.this);
+                        actionMode = startActionMode(MainActivity.this); //show ActionMode.
                     }
                 }
 
@@ -62,16 +64,21 @@ public class MainActivity extends AppCompatActivity implements ActionMode.Callba
                     selectedIds.add(data.getId());
 
                 if (selectedIds.size() > 0)
-                    actionMode.setTitle(String.valueOf(selectedIds.size()));
+                    actionMode.setTitle(String.valueOf(selectedIds.size())); //show selected item count on action mode.
                 else{
-                    actionMode.setTitle("");
-                    actionMode.finish();
+                    actionMode.setTitle(""); //remove item count from action mode.
+                    actionMode.finish(); //hide action mode.
                 }
                 adapter.setSelectedIds(selectedIds);
 
             }
         }
     }
+
+    /**
+     * @see MyData Create dummy List of type MyData.
+     * @return list
+     */
     private List<MyData> getList(){
         List<MyData> list = new ArrayList<>();
         list.add(new MyData(1,"GridView"));
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements ActionMode.Callba
     public boolean onActionItemClicked(ActionMode mode, MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.action_delete:
+                //just to show selected items.
                 StringBuilder stringBuilder = new StringBuilder();
                 for (MyData data : getList()) {
                     if (selectedIds.contains(data.getId()))

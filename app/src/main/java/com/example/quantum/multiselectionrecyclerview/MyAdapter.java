@@ -39,10 +39,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         int id = list.get(position).getId();
 
         if (selectedIds.contains(id)){
-            //set foreground color to FrameLayout.
+            //if item is selected then,set foreground color of FrameLayout.
             holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context,R.color.colorControlActivated)));
         }
         else {
+            //else remove selected item color.
             holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context,android.R.color.transparent)));
         }
     }
